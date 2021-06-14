@@ -133,11 +133,64 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">task2 << <a href='task2.html'>Previous</a> <a href='W13.html'>Next</a> >> W13<br /><h1>W12</h1>
-<p>直播影片</p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/fhSCPTUqwso" title="YouTube video player" width="560"></iframe></p>
-<p></p>
-<br />task2 << <a href='task2.html'>Previous</a> <a href='W13.html'>Next</a> >> W13</div>
+    <div id="tipue_search_content">手臂末端加入 components-gripper-suction pad 吸盤 << <a href='手臂末端加入 components-gripper-suction pad 吸盤.html'>Previous</a> <a href='Python remote API 逆向運動學函式.html'>Next</a> >> Python remote API 逆向運動學函式<br /><h1>鍵盤控制</h1>
+<p>我設定a(代碼97)為joint1往左向，d<span>(代碼100)為joint1往右向</span></p>
+<p>q(<span>代碼113)為joint2往左向，</span>e(<span>代碼101)為joint1往左向</span></p>
+<p>往上方向鍵(<span>代碼2007)為jointz往上方</span></p>
+<p>往下方向鍵(<span>代碼2008)為jointz往下方</span></p>
+<p>空白鍵(<span>代碼32)為放開</span></p>
+<p><span>影片連結:</span></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/xLvkGL81U7g" title="YouTube video player" width="560"></iframe></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
+    joint01=sim.getObjectHandle('joint1')
+    joint02=sim.getObjectHandle('joint2')
+    joint03=sim.getObjectHandle('joint3')
+    jointz=sim.getObjectHandle('jointz')
+    sim.setJointTargetPosition(joint01,0)
+    sim.setJointTargetPosition(joint02,0)
+    sim.setJointTargetPosition(joint03,0)
+    sim.setJointTargetPosition(jointz,0)
+    deg1=0
+    deg2=0
+end
+function sysCall_actuation()
+     message,auxiliaryData=sim.getSimulatorMessage()
+    while message~=-1 do
+        if (message==sim.message_keypress) then
+            if (auxiliaryData[1]==97) then
+            deg1=deg1+1
+            sim.setJointTargetPosition(joint01,deg1*math.pi/180)
+            end
+            if (auxiliaryData[1]==100) then
+            deg1=deg1-1
+            sim.setJointTargetPosition(joint01,deg1*math.pi/180)
+            end
+            if (auxiliaryData[1]==113) then
+            deg2=deg2+1
+            sim.setJointTargetPosition(joint02,deg2*math.pi/180)
+            end
+            if (auxiliaryData[1]==101) then
+            deg2=deg2-1
+            sim.setJointTargetPosition(joint02,deg2*math.pi/180)
+            end
+            if (auxiliaryData[1]==2008 ) then
+                sim.setJointTargetPosition(jointz,-0.039)
+                sim.setIntegerSignal("pad_switch",1)
+            end
+            if (auxiliaryData[1]==2007 ) then
+                sim.setJointTargetPosition(jointz,0)
+                sim.setIntegerSignal("pad_switch",1)
+            end
+            if (auxiliaryData[1]==32) then
+                sim.setIntegerSignal("pad_switch",0)
+            end
+            sim.setJointTargetPosition(joint03,(deg2-deg1)*math.pi/180)    
+        end
+    message,auxiliaryData=sim.getSimulatorMessage()
+    end
+end</pre>
+<p><br/><br/></p>
+<p></p><br />手臂末端加入 components-gripper-suction pad 吸盤 << <a href='手臂末端加入 components-gripper-suction pad 吸盤.html'>Previous</a> <a href='Python remote API 逆向運動學函式.html'>Next</a> >> Python remote API 逆向運動學函式</div>
         
     <!-- footer -->
       <div class="container">
