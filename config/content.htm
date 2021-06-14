@@ -463,7 +463,10 @@
 <p><span>stage3-bg3倉儲<a href="https://gitlab.com/40823203/stage3-bg3">stage3-bg3倉儲gitlab</a></span></p>
 <p><span>stage3-bg3網頁<a href="https://40823203.gitlab.io/stage3-bg3/content/index.html">stage3-bg3網頁gitlab</a></span></p>
 <p><span><img alt="" height="236" src="/images/3.png" width="420"/></span></p>
-<h2><span>W15</span></h2>
+<h2>W15</h2>
+<p><span>軸旋轉運動</span></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/MOIRxK9DiOU" title="YouTube video player" width="560"></iframe></p>
+<p><span></span></p>
 <h3>fossil</h3>
 <p><span>Github flaged - 利用 </span><a href="https://gogs.io/">gogs</a><span> 系統替代</span><span>到<a href="https://fossil.kmol.info:3443/">https://fossil.kmol.info:3443</a></span></p>
 <p><span>新增儲存庫-CD2021</span></p>
@@ -472,5 +475,26 @@
 <p>git remote add fossil https://fossil.kmol.info:3443/帳號/倉儲名稱.git</p>
 <p>git push fossil</p>
 <p><span><img alt="" height="209" src="/images/cmd_pH4gJUuaus.jpg" width="450"/></span></p>
-<p><span>軸旋轉運動</span></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/MOIRxK9DiOU" title="YouTube video player" width="560"></iframe></p>
+<h1>W16</h1>
+<h2>Onshape 零組件繪製</h2>
+<p><img alt="" height="253" src="/images/chrome_Bz3pSnY6S2.jpg" width="450"/></p>
+<p>零件擋下載:<a href="https://cad.onshape.com/documents/c34bc8651b4d4de42483aae0/w/93dc25b84960f27330098422/e/17462911c4c1fbd6eaeb4894">Onshape零件檔</a></p>
+<p></p>
+<h2>CoppeliaSim 4.1.0 MTB robot 場景</h2>
+<p><a href="https://drive.google.com/drive/folders/13PoXNiPLOnBBSk26_Zii_-Au-vFB838e?usp=sharing">零件stl檔</a></p>
+<p><img alt="" height="253" src="/images/coppeliaSim_wznqR2DFOE.png" width="450"/></p>
+<p>影片連結:</p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/24UX5pggKwg" title="YouTube video player" width="560"></iframe></p>
+<p></p>
+<h2>手臂末端加入 components-gripper-suction pad 吸盤</h2>
+<p><span>影片連結:</span></p>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/kG3i2MRafsc" title="YouTube video player" width="560"></iframe></p>
+<p></p>
+<h2>Python remote API 逆向運動學函式</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/3R2QVfn8d4w" title="YouTube video player" width="560"></iframe></p>
+<p>import sim as vrep<br/>import math<br/>import random<br/>import time<br/>import math</p>
+<p>def moving (x,y):<br/> a=0.4<br/> b=0.4<br/> c=math.pow((math.pow(x,2)+math.pow(y,2)),0.5)<br/> s=(a+b+c)/2<br/> area=math.pow((s*(s-a)*(s-b)*(s-c)),0.5)<br/> h=area/(2*c)<br/> deg1_base=math.atan(x/y)<br/> if x&lt;0 and y&lt;0 :<br/> deg1_base=deg1_base+math.pi<br/> end<br/> deg1_tri=math.asin(h/a)<br/> deg1=deg1_base+deg1_tri<br/> deg2=math.pi-(0.5*math.pi-deg1_tri)-math.acos(h/b)<br/> deg3=deg2-deg1<br/> vrep.simxSetJointTargetPosition(clientID,deg1,0,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,-deg2,0,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,deg3,0,opmode)<br/> <br/>print ('Start')<br/> <br/>vrep.simxFinish(-1)<br/> <br/>clientID = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5)</p>
+<p>if clientID != -1:<br/> print ('Connected to remote API server')</p>
+<p>res = vrep.simxAddStatusbarMessage(<br/> clientID, "40823203 ",<br/> vrep.simx_opmode_oneshot)<br/> if res not in (vrep.simx_return_ok, vrep.simx_return_novalue_flag):<br/> print("Could not add a message to the status bar.")</p>
+<p><br/> opmode = vrep.simx_opmode_oneshot_wait<br/> STREAMING = vrep.simx_opmode_streaming</p>
+<p><br/> vrep.simxStartSimulation(clientID, opmode)<br/> ret,joint01=vrep.simxGetObjectHandle(clientID,"joint1",opmode)<br/> ret,joint02=vrep.simxGetObjectHandle(clientID,"joint2",opmode)<br/> ret,joint03=vrep.simxGetObjectHandle(clientID,"joint3",opmode)<br/> ret,jointz=vrep.simxGetObjectHandle(clientID,"jointz",opmode)<br/> <br/> vrep.simxSetJointTargetPosition(clientID,joint01,0,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,joint02,0,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,joint03,0,opmode)<br/> vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,-0.039,opmode)<br/> time.sleep(1)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)<br/> time.sleep(1)<br/> moving:(0.2,0.7)<br/> time.sleep(1)<br/> vrep.simxSetIntegerSignal(clientID,"pad_switch",0,opmode)<br/> time.sleep(1)<br/> vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,-0.039,opmode)<br/> time.sleep(1)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)<br/> moving:(-0.3,-0.55)<br/> time.sleep(1)<br/> vrep.simxSetIntegerSignal(clientID,"pad_switch",0,opmode)<br/> time.sleep(1)<br/> vrep.simxSetIntegerSignal(clientID,"pad_switch",1,opmode)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,-0.039,opmode)<br/> time.sleep(1)<br/> vrep.simxSetJointTargetPosition(clientID,jointz,0,opmode)</p>
